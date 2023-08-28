@@ -19,7 +19,6 @@ refs.formElem.addEventListener('submit', onFormSubmit);
 refs.btnLoadMore.addEventListener('click', onLoadMore);
 refs.btnLoadMore.classList.add('visually-hidden');
 
-
 async function onFormSubmit(e) {
   e.preventDefault();
   window.scrollTo({ top: 0 });
@@ -29,7 +28,7 @@ async function onFormSubmit(e) {
 
   try {
     const data = await pixabayApi.getImages();
-    maxPage = Math.ceil(data.totalHits / pixabayApi.per_page);
+    maxPage = Math.ceil(data.totalHits / pixabayApi.perPage);
     refs.galleryList.innerHTML = '';
     renderImages(data.hits);
     lightbox.refresh();
@@ -64,6 +63,7 @@ async function onFormSubmit(e) {
 }
 
 function updateStatusBtn() {
+  console.log(pixabayApi.page, maxPage);
   if (pixabayApi.page === maxPage) {
     refs.btnLoadMore.classList.add('visually-hidden');
     Notiflix.Notify.info(
